@@ -4,6 +4,7 @@ import * as ChildProcess from "child_process";
 for (let instance of Config.instances) {
     const child = ChildProcess.spawn("npx", ["tsx", "src/instance"], {
         env: {
+            ...process.env,
             WS_URL: Config.wsUrl,
             ID: instance.id,
             CRON: instance.cron || "",
