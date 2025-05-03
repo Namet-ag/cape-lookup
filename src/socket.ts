@@ -56,6 +56,7 @@ export class Socket {
         });
 
         this.connection.on("close", (code, reason) => {
+            this.queue.clear();
             const reasonString = reason.toString();
             let message = `Connection to Core closed (${code})`;
             if (reasonString) {

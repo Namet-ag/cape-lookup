@@ -36,4 +36,8 @@ export class Queue {
     private emit(event: EventId) {
         this.emitter.emit(event);
     }
+
+    clear() {
+        this.queue.splice(0, this.queue.length);
+    }
 }
