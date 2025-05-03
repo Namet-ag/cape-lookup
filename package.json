@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -e ts -w src -x \"tsx src/main\""
+    "dev": "nodemon -e ts -w src -x \"tsx src/main\"",
+    "start": "tsx src/main"
   },
   "keywords": [],
   "author": "",
