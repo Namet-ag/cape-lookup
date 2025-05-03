@@ -3,6 +3,7 @@ import { Packet, PacketType, SubmitSuccessPacket } from "./types/packet.type";
 import EventEmitter from "events";
 import { Queue } from "./queue";
 import { LookupEntry } from "./types/lookup-entry.type";
+import { CONCURRENT_LOOKUPS } from "./variables";
 
 export class Socket {
     private connection: WS.WebSocket;
@@ -16,6 +17,7 @@ export class Socket {
         private readonly nodeId: string,
         private readonly queue: Queue
     ) {
+        this.emitter.setMaxListeners(CONCURRENT_LOOKUPS * 3);
         this.connect();
     }
 

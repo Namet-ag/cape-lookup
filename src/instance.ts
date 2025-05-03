@@ -2,12 +2,7 @@ import { CronJob } from "cron";
 import { LookerManager } from "./looker-manager";
 import { Queue } from "./queue";
 import { Socket } from "./socket";
-
-const WS_URL = process.env.WS_URL!;
-const NODE_ID = process.env.ID!;
-const CRON = process.env.CRON || null;
-const TOKEN = process.env.TOKEN!;
-const CONCURRENT_LOOKUPS = Number(process.env.CONCURRENT_LOOKUPS);
+import { CONCURRENT_LOOKUPS, CRON, NODE_ID, TOKEN, WS_URL } from "./variables";
 
 const lookerManager = new LookerManager();
 lookerManager.onready = () => {
@@ -26,7 +21,6 @@ lookerManager.onready = () => {
     function lookup() {
         const threadSpace = CONCURRENT_LOOKUPS - lookerManager.getActiveThreads();
         const newEntries = queue.take(threadSpace);
-        // console.log(`Starting ${newEntries.length} threads`);
         for (let entry of newEntries) {
             lookerManager.lookup(entry.user, async (capes) => {
                 const data = {
@@ -40,21 +34,18 @@ lookerManager.onready = () => {
                 };
 
                 const buffers = capes.map((cape) => cape.image);
-                // console.log(`Submitting user ${entry.user.username}`);
                 socket.send("submit", data, buffers);
                 const start = Date.now();
                 const timeout = setTimeout(() => {
                     console.log("SUBMISSION TOOK OVER 1s");
                 }, 1000);
                 try {
-                    // console.log("Submitting...");
                     await socket.waitForSubmissionSuccess(entry);
                     console.log(`Submission took ${Date.now() - start}ms`);
                 } catch (e) {
                     console.error(e);
                 }
                 clearTimeout(timeout);
-                // FS.appendFileSync("./completed.txt", `${entry.id} - ${entry.user.uuid} - ${entry.user.username}\n`)
             }).then(() => {
                 setTimeout(() => lookup());
             }).catch((error) => {
