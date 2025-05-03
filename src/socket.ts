@@ -3,7 +3,6 @@ import { Packet, PacketType, SubmitSuccessPacket } from "./types/packet.type";
 import EventEmitter from "events";
 import { Queue } from "./queue";
 import { LookupEntry } from "./types/lookup-entry.type";
-import { CONCURRENT_LOOKUPS } from "./variables";
 
 export class Socket {
     private connection: WS.WebSocket;
@@ -17,14 +16,13 @@ export class Socket {
         private readonly nodeId: string,
         private readonly queue: Queue
     ) {
-        this.emitter.setMaxListeners(CONCURRENT_LOOKUPS * 3);
         this.connect();
     }
 
     private connect() {
         if (this.connection) {
-            this.connection.removeAllListeners();
             this.connection.close();
+            this.connection.removeAllListeners();
         }
 
         const reconnect = () => {
@@ -144,15 +142,17 @@ export class Socket {
                 }
             }
 
-            this.connection.on("close", () => {
+            const closeCallback = () => {
                 end();
                 reject(new Error("Connection closed"));
-            });
+            };
+
+            this.connection.on("close", closeCallback);
 
             this.on("lookup-queue/submit-success", callback);
 
             const end = () => {
-                this.connection.off("close", reject);
+                this.connection.off("close", closeCallback);
                 this.off("lookup-queue/submit-success", callback);
             }
         });
