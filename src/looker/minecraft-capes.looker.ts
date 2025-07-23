@@ -78,6 +78,8 @@ export default class MinecraftCapesLooker extends Looker {
                         return height / width * 2;
                     });
 
+                    console.log(`Minecraft Capes CRON submitting "${cape.title}" - https://minecraftcapes.net/gallery/${cape.hash}`);
+
                     await onCape({
                         image: info.buffer,
                         hasElytra: info.hasElyta,

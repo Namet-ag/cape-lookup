@@ -20,7 +20,7 @@ lookerManager.onready = () => {
     
     function lookup() {
         const threadSpace = CONCURRENT_LOOKUPS - lookerManager.getActiveThreads();
-        console.log("Current thread space:", threadSpace);
+        // console.log("Current thread space:", threadSpace);
         const newEntries = queue.take(threadSpace);
         for (let entry of newEntries) {
             lookerManager.lookup(entry.user, async (capes) => {
