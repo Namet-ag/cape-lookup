@@ -67,7 +67,7 @@ export default class MinecraftCapesLooker extends Looker {
             const capes: MinecraftCapeInfo[] = response.data.data;
             for (let cape of capes) {
                 try {
-                    if (cape.type_name != "Cape") {
+                    if (cape.type_name != "Cape" && cape.type_name != "Animated Cape") {
                         continue;
                     }
                     const assetResponse = await getAxiosInstance().get(`https://api.minecraftcapes.net/api/gallery/${cape.hash}/preview/map`, {
