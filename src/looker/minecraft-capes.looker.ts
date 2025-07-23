@@ -98,7 +98,7 @@ export default class MinecraftCapesLooker extends Looker {
                 }
             }
 
-            if (!response.data.next_page_url) {
+            if (!response.data.hasNextPage) {
                 break;
             }
         }
