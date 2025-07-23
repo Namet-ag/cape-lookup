@@ -1,8 +1,8 @@
 import { Looker } from "../looker";
-import Axios from "axios";
 import { dashifyUuid } from "../utils";
 import { Profile } from "../types/profile.type";
 import { CapeInfo } from "../types/cape-info.type";
+import getAxiosInstance from "../axios-instance";
 
 type MinecraftCapeInfo = {
     _id: string;
@@ -30,7 +30,7 @@ export default class MinecraftCapesLooker extends Looker {
     }
 
     public async lookup(profile: Profile): Promise<Omit<CapeInfo, "service">> {
-        const response = await Axios.get(`https://api.minecraftcapes.net/profile/${profile.uuid.split("-").join("")}`);
+        const response = await getAxiosInstance().get(`https://api.minecraftcapes.net/profile/${profile.uuid.split("-").join("")}`);
 
         if (response.status != 200) {
             throw new Error(`Invalid status code ${response.status}.`);
@@ -59,7 +59,7 @@ export default class MinecraftCapesLooker extends Looker {
     public async cron(onCape: (info: Omit<CapeInfo, "service">) => Promise<void>): Promise<void> {
         for (let page = 1; true; page++) {
             console.log(`Minecraft Capes CRON page ${page}`);
-            const response = await Axios.get(`https://api.minecraftcapes.net/api/gallery/get?page=${page}`);
+            const response = await getAxiosInstance().get(`https://api.minecraftcapes.net/api/gallery/get?page=${page}`);
             if (response.status != 200) {
                 throw new Error(`Invalid status code ${response.status}.`);
             }
@@ -70,7 +70,7 @@ export default class MinecraftCapesLooker extends Looker {
                     if (cape.type_name != "Cape") {
                         continue;
                     }
-                    const assetResponse = await Axios.get(`https://api.minecraftcapes.net/api/gallery/${cape.hash}/preview/map`, {
+                    const assetResponse = await getAxiosInstance().get(`https://api.minecraftcapes.net/api/gallery/${cape.hash}/preview/map`, {
                         responseType: "arraybuffer"
                     });
     

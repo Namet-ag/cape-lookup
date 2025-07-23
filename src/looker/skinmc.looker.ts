@@ -1,7 +1,7 @@
 import { Looker } from "../looker";
-import Axios from "axios";
 import { CapeInfo } from "../types/cape-info.type";
 import { Profile } from "../types/profile.type";
+import getAxiosInstance from "../axios-instance";
 
 export default class SkinMCLooker extends Looker {
     constructor() {
@@ -9,7 +9,7 @@ export default class SkinMCLooker extends Looker {
     }
 
     async lookup(entry: Profile): Promise<Omit<CapeInfo, "service">> {
-        const response = await Axios.get(`https://skinmc.net/api/v1/skinmcCape/${entry.uuid}`, {
+        const response = await getAxiosInstance().get(`https://skinmc.net/api/v1/skinmcCape/${entry.uuid}`, {
             responseType: "arraybuffer"
         });
 

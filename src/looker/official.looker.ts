@@ -4,6 +4,7 @@ import * as FS from "fs";
 import * as Crypto from "crypto";
 import { CapeInfo } from "../types/cape-info.type";
 import { Profile } from "../types/profile.type";
+import getAxiosInstance from "../axios-instance";
 
 export default class OfficialLooker extends Looker {
     private readonly urls = new Map<string, string>();
@@ -40,7 +41,7 @@ export default class OfficialLooker extends Looker {
 
         let capeName = this.urls.get(urlId);
 
-        const response = await Axios.get(profile.capeUrl, {
+        const response = await getAxiosInstance().get(profile.capeUrl, {
             responseType: "arraybuffer"
         });
         if (response.status !== 200) {

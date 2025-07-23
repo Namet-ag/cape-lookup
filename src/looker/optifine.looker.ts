@@ -2,6 +2,7 @@ import Axios from "axios";
 import { Looker } from "../looker";
 import { Profile } from "../types/profile.type";
 import { CapeInfo } from "../types/cape-info.type";
+import getAxiosInstance from "../axios-instance";
 
 export default class OptifineLooker extends Looker {
     protected readonly address: string;
@@ -26,7 +27,7 @@ export default class OptifineLooker extends Looker {
             }
         }, 5_000);
 
-        const response = await Axios.get(url, {
+        const response = await getAxiosInstance().get(url, {
             responseType: "arraybuffer",
             maxRedirects: 0,
             signal: abortController.signal

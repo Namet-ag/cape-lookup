@@ -1,7 +1,7 @@
 import { Looker } from "../looker";
-import Axios from "axios";
 import { CapeInfo } from "../types/cape-info.type";
 import { Profile } from "../types/profile.type";
+import getAxiosInstance from "../axios-instance";
 
 export default class MantleLooker extends Looker {
     constructor() {
@@ -9,7 +9,7 @@ export default class MantleLooker extends Looker {
     }
 
     async lookup(profile: Profile): Promise<Omit<CapeInfo, "service">> {
-        const userResponse = await Axios.get(`https://api.mantle.gg/users/individual/${profile.uuid}`);
+        const userResponse = await getAxiosInstance().get(`https://api.mantle.gg/users/individual/${profile.uuid}`);
         if (userResponse.status != 200) {
             throw new Error(`Invalid status code ${userResponse.status}.`);
         }
@@ -21,7 +21,7 @@ export default class MantleLooker extends Looker {
             throw new Error("User does not have a cape.");
         }
 
-        const bufferResponse = await Axios.get(capeSlot.cosmetic.textureUrl, {
+        const bufferResponse = await getAxiosInstance().get(capeSlot.cosmetic.textureUrl, {
             responseType: "arraybuffer"
         });
 
