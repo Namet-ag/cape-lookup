@@ -29,7 +29,7 @@ export default class SkinMCLooker extends Looker {
             dateUploaded: null,
             websiteUrl: null,
             assetUrl: null,
-            creatorUuid: null
+            creator: null
         }
     }
 }

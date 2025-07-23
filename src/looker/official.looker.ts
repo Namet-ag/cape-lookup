@@ -72,7 +72,7 @@ export default class OfficialLooker extends Looker {
             dateUploaded: null,
             websiteUrl: null,
             assetUrl: null,
-            creatorUuid: null,
+            creator: null,
             dataFreshness: new Date()
         }
     }

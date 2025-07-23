@@ -41,7 +41,7 @@ export default class MantleLooker extends Looker {
             dateUploaded: new Date(capeSlot.cosmetic.dateCreated),
             websiteUrl: null,
             assetUrl: capeSlot.cosmetic.textureUrl,
-            creatorUuid: capeSlot.cosmetic.creator?.uuid || null,
+            creator: capeSlot.cosmetic.creator?.uuid || null,
             dataFreshness: new Date()
         };
     }

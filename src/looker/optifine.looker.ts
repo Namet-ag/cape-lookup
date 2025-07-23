@@ -50,7 +50,7 @@ export default class OptifineLooker extends Looker {
             dateUploaded: null,
             websiteUrl: null,
             assetUrl: null, // optifine servers dont have an asset url for the specific cape, only the current cape that the user is wearing
-            creatorUuid: null
+            creator: null
         }
     }
 }

@@ -52,7 +52,7 @@ export default class MinecraftCapesLooker extends Looker {
             dateUploaded: null,
             websiteUrl: null,
             assetUrl: null,
-            creatorUuid: null
+            creator: null
         }
     }
 
@@ -78,7 +78,7 @@ export default class MinecraftCapesLooker extends Looker {
                         return height / width * 2;
                     });
 
-                    console.log(`Minecraft Capes CRON submitting "${cape.title}" - https://minecraftcapes.net/gallery/${cape.hash}`);
+                    console.log(`Minecraft Capes CRON submitting "${cape.title}" - https://minecraftcapes.net/gallery/${cape.hash} (by ${dashifyUuid(cape.author)})`);
 
                     await onCape({
                         image: info.buffer,
@@ -90,7 +90,7 @@ export default class MinecraftCapesLooker extends Looker {
                         dateUploaded: new Date(cape.createdAt),
                         websiteUrl: `https://minecraftcapes.net/gallery/${cape.hash}`,
                         assetUrl: `https://api.minecraftcapes.net/api/gallery/${cape.hash}/preview/map`,
-                        creatorUuid: dashifyUuid(cape.author),
+                        creator: dashifyUuid(cape.author),
                         dataFreshness: new Date(cape.updatedAt)
                     });
                 } catch (e) {

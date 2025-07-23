@@ -9,6 +9,6 @@ export type CapeInfo = {
     dateUploaded: Date | null;
     websiteUrl: string | null;
     assetUrl: string | null;
-    creatorUuid: string | null;
+    creator: string | null;
     dataFreshness?: Date;
 }
