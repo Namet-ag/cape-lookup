@@ -12,7 +12,7 @@ export default class OptifineLooker extends Looker {
         address: string
     }) {
         super(options?.id || "optifine");
-        this.address = options?.address || "http://107.182.233.85";
+        this.address = options?.address || "http://170.249.196.11";
     }
 
     async lookup(profile: Profile): Promise<Omit<CapeInfo, "service">> {
