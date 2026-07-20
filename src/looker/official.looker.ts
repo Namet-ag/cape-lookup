@@ -14,9 +14,6 @@ export default class OfficialLooker extends Looker {
 
 	constructor() {
 		super("official");
-		FS.mkdirSync("unknown-official-capes", {
-			recursive: true,
-		});
 	}
 
 	async prepare() {
