@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 /Config.json
+
+/unknown-official-capes
