@@ -2,7 +2,9 @@ import Config from "./config";
 import * as ChildProcess from "child_process";
 import * as FS from "fs";
 
-FS.rmSync("unknown-official-capes");
+FS.rmSync("unknown-official-capes", {
+	recursive: true,
+});
 FS.mkdirSync("unknown-official-capes", {
 	recursive: true,
 });
