@@ -48,10 +48,12 @@ export default class SkinMCLooker extends Looker {
 			description: metadata.description ?? null,
 			frames: info.frames,
 			ticksPerFrame: 1,
-			dateUploaded: null,
+			dateUploaded: metadata.dateUploaded
+				? new Date(metadata.dateUploaded)
+				: null,
 			websiteUrl: metadata.websiteUrl ?? null,
 			assetUrl: null,
-			creator: null,
+			creator: metadata.creator ?? null,
 			dataFreshness: new Date(),
 		};
 	}
