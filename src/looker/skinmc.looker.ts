@@ -7,6 +7,8 @@ type SkinMCCapeMetadata = {
 	name: string | null;
 	description: string | null;
 	websiteUrl: string | null;
+	dateUploaded: string | null;
+	creator: string | null;
 };
 
 export default class SkinMCLooker extends Looker {
@@ -21,15 +23,11 @@ export default class SkinMCLooker extends Looker {
 			getAxiosInstance().get(capeUrl, {
 				responseType: "arraybuffer",
 			}),
-			getAxiosInstance().get<SkinMCCapeMetadata>(
-				`${capeUrl}/metadata`
-			),
+			getAxiosInstance().get<SkinMCCapeMetadata>(`${capeUrl}/metadata`),
 		]);
 
 		if (response.status !== 200) {
-			throw new Error(
-				`Invalid cape status code ${response.status}.`
-			);
+			throw new Error(`Invalid cape status code ${response.status}.`);
 		}
 
 		if (metadataResponse.status !== 200) {
